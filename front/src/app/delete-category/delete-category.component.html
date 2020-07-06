@@ -1,0 +1,12 @@
+<mat-spinner *ngIf="loading" mode="indeterminate"></mat-spinner>
+<ng-container *ngIf="!loading">
+  <h1 mat-dialog-title>
+    Are you sure you wanna delete <b>{{ data.category.name }}</b>?
+  </h1>
+  <div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button cdkFocusInitial (click)="delete()" color="primary">
+      Yes
+    </button>
+  </div>
+</ng-container>

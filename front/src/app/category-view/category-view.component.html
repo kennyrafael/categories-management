@@ -1,0 +1,23 @@
+<mat-accordion class="example-headers-align" multi>
+  <mat-expansion-panel *ngFor="let category of categories; trackBy: trackByPackId">
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        {{ category.name }}
+      </mat-panel-title>
+      <mat-panel-description>
+        &nbsp;
+        <mat-icon title="Edit category!" (click)="openDialogEdit(category, $event)">edit</mat-icon>
+        <mat-icon title="Add new category!" (click)="openDialog(category, $event)">add_circle</mat-icon>
+        <mat-icon title="Delete category!" (click)="openDialogDelete(category, $event)">remove_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+    <app-category-view
+      *ngIf="category.subcategories"
+      [categories]="category.subcategories"
+    ></app-category-view>
+    {{
+      category.subcategories ? "" : category.name + " has no child category."
+    }}
+  </mat-expansion-panel>
+</mat-accordion>
+<p *ngIf="!categories.length">Hit the button to create your first category! =)</p>

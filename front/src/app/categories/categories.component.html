@@ -1,0 +1,13 @@
+<div class="categories-list">
+  <mat-list-item>
+    <mat-form-field appearance="outline">
+      <mat-label>Search Categories</mat-label>
+      <input matInput autocomplete="off" [(ngModel)]="filter" (keyup.enter)="search()"/>
+      <mat-icon matSuffix class="pointer" (click)="search()">search</mat-icon>
+    </mat-form-field>
+    <mat-icon (click)="openDialog($event)" title="Add new category!" class="add-category pointer">add_circle</mat-icon>
+  </mat-list-item>
+  <mat-divider></mat-divider>
+  <mat-spinner *ngIf="filtering" diameter="60" mode="indeterminate"></mat-spinner>
+  <app-category-view *ngIf="!filtering" [categories]="categories"></app-category-view>
+</div>
