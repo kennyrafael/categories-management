@@ -40,7 +40,7 @@ export class CategoriesComponent implements OnInit {
   }
 
   search() {
-    if (this.filter !== '') this.getCategories(this.filter);
+    this.getCategories(this.filter);
   }
 
   openDialog(event) {

@@ -9,10 +9,9 @@ import { DialogData } from '../category-view/category-view.component';
 @Component({
   selector: 'app-edit-category',
   templateUrl: './edit-category.component.html',
-  styleUrls: ['./edit-category.component.scss']
+  styleUrls: ['./edit-category.component.scss'],
 })
 export class EditCategoryComponent {
-
   name = new FormControl('', [Validators.required]);
   category_id: null;
 
@@ -32,34 +31,35 @@ export class EditCategoryComponent {
   }
 
   edit() {
-    this.loading = true;
-    let message = '';
-    this.data.category.name = this.name.value
-    this.dataService
-      .editCategories(this.data.category.id, this.data.category)
-      .subscribe(
-        (data: any) => {
-          if (data.success) {
-            this.dialogRef.close();
+    if (this.name.value !== '') {
+      this.loading = true;
+      let message = '';
+      this.data.category.name = this.name.value;
+      this.dataService
+        .editCategories(this.data.category.id, this.data.category)
+        .subscribe(
+          (data: any) => {
+            if (data.success) {
+              this.dialogRef.close();
+            }
+
+            message = data.message;
+
+            this._snackBar.open(message, 'ok', {
+              duration: 3000,
+            });
+
+            this.loading = false;
+          },
+          (error) => {
+            message = error.message;
+
+            this._snackBar.open(message, 'ok', {
+              duration: 3000,
+            });
+            this.loading = false;
           }
-
-          message = data.message;
-
-          this._snackBar.open(message, 'ok', {
-            duration: 3000,
-          });
-
-          this.loading = false;
-        },
-        (error) => {
-          message = error.message;
-
-          this._snackBar.open(message, 'ok', {
-            duration: 3000,
-          });
-          this.loading = false;
-        }
-      );
+        );
+    }
   }
-
 }

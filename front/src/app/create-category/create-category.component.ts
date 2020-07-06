@@ -11,7 +11,6 @@ import { FormControl, Validators } from '@angular/forms';
   styleUrls: ['./create-category.component.scss'],
 })
 export class CreateCategoryComponent {
-
   name = new FormControl('', [Validators.required]);
   category_id: null;
 
@@ -31,35 +30,37 @@ export class CreateCategoryComponent {
   }
 
   create() {
-    this.loading = true;
-    let message = '';
-    this.dataService
-      .createCategories({
-        name: this.name.value,
-        category_id: this.category_id,
-      })
-      .subscribe(
-        (data: any) => {
-          if (data.success) {
-            this.dialogRef.close();
+    if (this.name.value !== '') {
+      this.loading = true;
+      let message = '';
+      this.dataService
+        .createCategories({
+          name: this.name.value,
+          category_id: this.category_id,
+        })
+        .subscribe(
+          (data: any) => {
+            if (data.success) {
+              this.dialogRef.close();
+            }
+
+            message = data.message;
+
+            this._snackBar.open(message, 'ok', {
+              duration: 3000,
+            });
+
+            this.loading = false;
+          },
+          (error) => {
+            message = error.message;
+
+            this._snackBar.open(message, 'ok', {
+              duration: 3000,
+            });
+            this.loading = false;
           }
-
-          message = data.message;
-
-          this._snackBar.open(message, 'ok', {
-            duration: 3000,
-          });
-
-          this.loading = false;
-        },
-        (error) => {
-          message = error.message;
-
-          this._snackBar.open(message, 'ok', {
-            duration: 3000,
-          });
-          this.loading = false;
-        }
-      );
+        );
+    }
   }
 }

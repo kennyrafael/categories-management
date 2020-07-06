@@ -13,6 +13,7 @@
           ngDefaultControl
           matInput
           [formControl]="name"
+          (keyup.enter)="edit()"
         />
         <mat-error *ngIf="name.hasError('required')">
           Name is <strong>required</strong>
