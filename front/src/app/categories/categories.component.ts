@@ -3,7 +3,6 @@ import { DataService } from '../data.service';
 import { MatAccordion } from '@angular/material/expansion';
 import { MatDialog } from '@angular/material/dialog';
 import { CreateCategoryComponent } from '../create-category/create-category.component';
-import { getEnabledCategories } from 'trace_events';
 
 @Component({
   selector: 'app-categories',
